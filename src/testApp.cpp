@@ -66,21 +66,6 @@ void testApp::setup(){
 	
     if (parsingSuccessful) {
 		cout << result.getRawString() << endl;
-        
-        // now write pretty print
-        if(!result.save("example_output_pretty.json",true)) {
-            cout << "example_output_pretty.json written unsuccessfully." << endl;
-        } else {
-            cout << "example_output_pretty.json written successfully." << endl;
-        }
-        
-        // now write without pretty print
-        if(!result.save("example_output_fast.json",false)) {
-            cout << "example_output_pretty.json written unsuccessfully." << endl;
-        } else {
-            cout << "example_output_pretty.json written successfully." << endl;
-        }
-		
 	} else {
 		cout  << "Failed to parse JSON" << endl;
 	}
