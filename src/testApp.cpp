@@ -42,10 +42,32 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
+    ofBackground(0);
+    ofSetColor(255);
     for(int i=0; i<result.size(); i++)
 	{
-		std::string title  = convertInt(result[i]["id"].asInt());
-		ofDrawBitmapString(title, 20, i*24+40);
+        // the id
+		//std::string id_str = convertInt(result[i]["id"].asInt());
+        
+        // num faces
+        int howManyFaces = result[i]["tags"]["faces"].size();
+        
+        float x,y;
+        
+        for(int j=0;j<howManyFaces;j++){
+            //this face;
+            x =result[i]["tags"]["faces"][j]["center_pos"]["value"][0].asFloat();
+            y =result[i]["tags"]["faces"][j]["center_pos"]["value"][1].asFloat();
+            float screenX = x*ofGetWidth();
+            float screenY = y*ofGetHeight();
+            ofCircle(screenX,screenY, 5);
+        }
+        
+        // each face
+        //std::string
+        std::string numFaces_int = convertInt(howManyFaces);
+		ofDrawBitmapString(numFaces_int, 20, i*24+40);
+
 	}
     
     
