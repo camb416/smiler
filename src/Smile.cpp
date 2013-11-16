@@ -8,7 +8,7 @@
 
 #include "Smile.h"
 
-#define MAX_SCALE 10.0f
+#define MAX_SCALE 25.0f
 #define MIN_SCALE 0.25f
 /*
  private:
@@ -45,7 +45,7 @@ void Smile::update(){
         dScale = MIN_SCALE;
         dR = ofRandom(360.0f)-180.0f;
     }
-    scale += (dScale-scale)/4.0f;
+    scale += (dScale-scale)/16.0f;
     r += (dR-r)/4.0f;
 }
 void Smile::draw(){
