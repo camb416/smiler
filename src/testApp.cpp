@@ -12,7 +12,7 @@ int colors[50] = {0xe8eae7, 0xdce1dd, 0xf6ecf4, 0xfbf1f2, 0x041773, 0xfc4942, 0x
 void testApp::setup(){
 
     
-
+    
     
     std::string file = "/Users/cam/Documents/Development/openFrameworks/objectcrowdsourcer/taggedMin.json";
 	
@@ -63,6 +63,11 @@ void testApp::setup(){
             aSmile->setColor(colors[i%50]);
             smiles.push_back(aSmile);
             
+            
+        }
+        if(i==0){
+            // load an image
+          //  string imgUrl =result[i]
         }
     }
     

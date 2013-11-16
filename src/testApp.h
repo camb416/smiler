@@ -27,6 +27,8 @@ private:
     ofxJSONElement result;
     vector<Smile*> smiles;
         void reset();
+    
+    ofImage image;
 
 		
 };
