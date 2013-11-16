@@ -38,6 +38,7 @@ private:
     vector<ofImage*> images;
     int numImages;
     int frameCount;
+    vector<ofPoint*> polyLine;
 
 		
 };

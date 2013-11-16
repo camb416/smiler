@@ -94,6 +94,12 @@ void testApp::setup(){
             aSmile->setColor(colors[i%47]);
             smiles.push_back(aSmile);
             
+            if(j==0){
+                // only add the first smile to the poly line
+                ofPoint * p = new ofPoint(screenX,screenY);
+                polyLine.push_back(p);
+            }
+            
             
         }
         string imgUrl =result[i]["imageCache"].asString();
@@ -129,7 +135,14 @@ void testApp::draw(){
 
     ofBackground(0);
     ofSetColor(255);
-    if(frameCount<numImages) images.at(frameCount)->draw(0,0);
+    if(frameCount<numImages) images.at(frameCount)->draw(0,0,ofGetWidth(),ofGetHeight());
+    
+    if(frameCount>0){
+    for(int i=1;i<MIN(frameCount,polyLine.size());i++){
+        ofSetColor(255);
+        ofLine(polyLine.at(i)->x,polyLine.at(i)->y,polyLine.at(i-1)->x,polyLine.at(i-1)->y);
+    }
+    }
     
     for(int i=0;i<smiles.size();i++){
         Smile * thisSmile = smiles.at(i);
