@@ -6,13 +6,58 @@ string convertInt(int number);
 //int colors[5] = {0x444488,0xff5533, 0x1188ff, 0xeedddd, 0xeecc99};
 
 // http://www.cssdrive.com/imagepalette/index.php
-int colors[50] = {0xe8eae7, 0xdce1dd, 0xf6ecf4, 0xfbf1f2, 0x041773, 0xfc4942, 0x8864aa, 0x070b64, 0x8f0799, 0xfbdc00, 0xf4a0ad, 0xf6a395, 0xf3b4c5, 0xeaece9, 0x008fe4, 0x51aff7, 0x4e6555, 0xbc6669, 0x673d17, 0xa10e1e, 0xee1b44, 0x016bc3, 0x020564, 0xf9de47, 0x21a900, 0x22ac23, 0x30b3eb, 0x83a6e0, 0xe0ecd6, 0xdde3d5, 0xede38e, 0x22b00e, 0x070534, 0x003a66, 0xcf0103, 0xe6e6e4, 0xf4c6d0, 0x996f01, 0x00043c, 0x7be25f, 0xe30a03, 0xf79cad, 0xe4e3e1, 0x0653c9, 0x0242ac, 0xeba00f, 0x000546, 0xf190a3, 0xeaeae8};
+int colors[47] = {  0xe8eae7,
+                    0xdce1dd,
+                    0xf6ecf4,
+                    0xfbf1f2,
+                    0x041773,
+                    0xfc4942,
+                    0x8864aa,
+    0x070b64,
+    0x8f0799,
+    0xfbdc00,
+    0xf4a0ad,
+    0xf6a395, 
+0xf3b4c5, 
+0xeaece9, 
+0x008fe4, 
+0x51aff7, 
+0x4e6555, 
+0xbc6669, 
+0x673d17, 
+0xa10e1e, 
+0xee1b44, 
+0x016bc3,
+0xf9de47, 
+0x21a900, 
+0x22ac23, 
+0x30b3eb, 
+0x83a6e0, 
+0xe0ecd6, 
+0xdde3d5, 
+0xede38e, 
+0x22b00e, 
+0x070534, 
+0x003a66, 
+0xcf0103, 
+0xe6e6e4, 
+0xf4c6d0, 
+0x996f01,
+0x7be25f, 
+0xe30a03, 
+0xf79cad, 
+0xe4e3e1, 
+0x0653c9, 
+0x0242ac, 
+0xeba00f,
+0xf190a3, 
+0xeaeae8};
 
 //--------------------------------------------------------------
 void testApp::setup(){
 
     
-    
+    ofSetFrameRate(30);
     
     std::string file = "/Users/cam/Documents/Development/openFrameworks/objectcrowdsourcer/taggedMin.json";
 	
@@ -41,6 +86,7 @@ void testApp::setup(){
 	}
     
     // parse!
+    numImages = result.size();
     for(int i=0; i<result.size(); i++)
 	{
         // the id
@@ -60,19 +106,27 @@ void testApp::setup(){
             //ofCircle(screenX,screenY, 5);
             Smile * aSmile = new Smile(screenX,screenY);
             aSmile->setWait(i);
-            aSmile->setColor(colors[i%50]);
+            aSmile->setColor(colors[i%47]);
             smiles.push_back(aSmile);
             
             
         }
-        if(i==0){
-            // load an image
-            string imgUrl =result[i]["imageCache"].asString();
-            cout << imgUrl<< endl;
-            image.loadImage("imageCache/"+imgUrl);
-        }
+        string imgUrl =result[i]["imageCache"].asString();
+        ofImage * newImage = new ofImage();
+        images.push_back(newImage);
+        loader.loadFromDisk(*newImage, "imageCache_480/"+imgUrl);
+      //  ofImage * newImage = new ofImage();
+      //  newImage->loadImage("imageCache/"+imgUrl);
+      //  images.push_back(newImage);
+       
     }
+    frameCount = 0;
     
+    
+}
+
+void testApp::exit(){
+    	loader.stopThread();
 }
 
 //--------------------------------------------------------------
@@ -82,6 +136,7 @@ void testApp::update(){
         thisSmile->update();
 
     }
+    frameCount ++;
 }
 
 //--------------------------------------------------------------
@@ -89,7 +144,7 @@ void testApp::draw(){
 
     ofBackground(0);
     ofSetColor(255);
-    image.draw(0,0);
+    if(frameCount<numImages) images.at(frameCount)->draw(0,0);
     
     for(int i=0;i<smiles.size();i++){
         Smile * thisSmile = smiles.at(i);
@@ -157,6 +212,7 @@ void testApp::reset(){
     for(int i=0;i<smiles.size();i++){
         smiles.at(i)->setWait(i);
     }
+    frameCount = 0;
 }
 
 // from http://www.cplusplus.com/forum/beginner/7777/

@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxJSONElement.h"
 #include "Smile.h"
+#include "ofxThreadedImageLoader.h"
 
 class testApp : public ofBaseApp{
 
@@ -10,6 +11,7 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+    void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -28,7 +30,14 @@ private:
     vector<Smile*> smiles;
         void reset();
     
-    ofImage image;
+    //ofImage image;
+    //vector<ofImage*> images;
+    
+    // threaded
+    ofxThreadedImageLoader loader;
+    vector<ofImage*> images;
+    int numImages;
+    int frameCount;
 
 		
 };
