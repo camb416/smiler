@@ -67,7 +67,9 @@ void testApp::setup(){
         }
         if(i==0){
             // load an image
-          //  string imgUrl =result[i]
+            string imgUrl =result[i]["imageCache"].asString();
+            cout << imgUrl<< endl;
+            image.loadImage("imageCache/"+imgUrl);
         }
     }
     
@@ -87,6 +89,7 @@ void testApp::draw(){
 
     ofBackground(0);
     ofSetColor(255);
+    image.draw(0,0);
     
     for(int i=0;i<smiles.size();i++){
         Smile * thisSmile = smiles.at(i);
