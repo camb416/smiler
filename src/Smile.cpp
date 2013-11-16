@@ -8,7 +8,8 @@
 
 #include "Smile.h"
 
-#define MAX_SCALE 2.0f
+#define MAX_SCALE 10.0f
+#define MIN_SCALE 0.25f
 /*
  private:
  ofPoint pos;
@@ -25,6 +26,8 @@ Smile::Smile(float _x, float _y){
     scale = 0;
     dScale = 0;
     color = ofColor::fromHex(0xffffff);
+    dR = r = ofRandom(360.0f)-180.0f;
+
 }
 Smile::~Smile(){
     
@@ -39,9 +42,11 @@ void Smile::update(){
     wait--;
     if(wait==0){
         scale = MAX_SCALE;
-        dScale = 1.0f;
+        dScale = MIN_SCALE;
+        dR = ofRandom(360.0f)-180.0f;
     }
     scale += (dScale-scale)/4.0f;
+    r += (dR-r)/4.0f;
 }
 void Smile::draw(){
     
@@ -59,6 +64,7 @@ void Smile::draw(){
         ofSetColor(newColor);
         ofPushMatrix();
         ofTranslate(pos);
+        ofRotate(r);
         img_ptr->draw(-1*img_ptr->width/2*scale,-1*img_ptr->height/2*scale,img_ptr->width*scale,img_ptr->width*scale);
         //ofCircle(0,0,3.0f*scale);
         ofPopMatrix();

@@ -21,6 +21,8 @@ private:
     float wait;
     ofColor color;
     ofImage * img_ptr;
+    float r;
+    float dR;
 public:
     void registerImage(ofImage * _img_ptr);
     Smile(float _x, float _y);
