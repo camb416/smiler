@@ -65,8 +65,8 @@ void testApp::draw(){
         
         // each face
         //std::string
-        std::string numFaces_int = convertInt(howManyFaces);
-		ofDrawBitmapString(numFaces_int, 20, i*24+40);
+        //std::string numFaces_string = convertInt(howManyFaces);
+		//ofDrawBitmapString(numFaces_string, 20, i*24+40);
 
 	}
     
