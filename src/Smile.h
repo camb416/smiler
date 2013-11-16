@@ -19,9 +19,10 @@ private:
     float scale;
     float dScale;
     float wait;
-    int color;
+    ofColor color;
+    ofImage * img_ptr;
 public:
-    
+    void registerImage(ofImage * _img_ptr);
     Smile(float _x, float _y);
     ~Smile();
     void setWait(float _wait);

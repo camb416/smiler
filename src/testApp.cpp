@@ -59,6 +59,11 @@ void testApp::setup(){
     
     ofSetFrameRate(30);
     
+    happyFace_img = new ofImage();
+    
+    happyFace_img->loadImage("happy.png");
+    
+    
     std::string file = "/Users/cam/Documents/Development/openFrameworks/objectcrowdsourcer/taggedMin.json";
 	
 	// Now parse the JSON
@@ -92,13 +97,14 @@ void testApp::setup(){
             Smile * aSmile = new Smile(screenX,screenY);
             aSmile->setWait(i);
             aSmile->setColor(colors[i%47]);
+            aSmile->registerImage(happyFace_img);
             smiles.push_back(aSmile);
             
-            if(j==0){
+            //if(j==0){
                 // only add the first smile to the poly line
                 ofPoint * p = new ofPoint(screenX,screenY);
                 polyLine.push_back(p);
-            }
+            //}
             
             
         }
@@ -112,6 +118,7 @@ void testApp::setup(){
        
     }
     frameCount = 0;
+    ofSetCircleResolution(64);
     
     
 }
@@ -134,20 +141,25 @@ void testApp::update(){
 void testApp::draw(){
 
     ofBackground(0);
-    ofSetColor(255);
+    ofEnableAlphaBlending();
+    ofSetColor(255,255,255,64);
     if(frameCount<numImages) images.at(frameCount)->draw(0,0,ofGetWidth(),ofGetHeight());
     
     if(frameCount>0){
-    for(int i=1;i<MIN(frameCount,polyLine.size());i++){
-        ofSetColor(255);
-        ofLine(polyLine.at(i)->x,polyLine.at(i)->y,polyLine.at(i-1)->x,polyLine.at(i-1)->y);
-    }
+  //  for(int i=1;i<MIN(frameCount,polyLine.size());i++){
+       // ofSetColor(255,255,255,32);
+        //ofLine(polyLine.at(i)->x,polyLine.at(i)->y,polyLine.at(i-1)->x,polyLine.at(i-1)->y);
+  //  }
     }
     
     for(int i=0;i<smiles.size();i++){
         Smile * thisSmile = smiles.at(i);
 
         thisSmile->draw();
+        
+        if(i<polyLine.size() && i>0 && i<frameCount){
+      //    ofLine(polyLine.at(i)->x,polyLine.at(i)->y,polyLine.at(i-1)->x,polyLine.at(i-1)->y);
+        }
     }
         // each face
         //std::string

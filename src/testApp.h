@@ -39,6 +39,8 @@ private:
     int numImages;
     int frameCount;
     vector<ofPoint*> polyLine;
+    
+    ofImage * happyFace_img;
 
 		
 };

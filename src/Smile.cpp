@@ -7,6 +7,8 @@
 //
 
 #include "Smile.h"
+
+#define MAX_SCALE 2.0f
 /*
  private:
  ofPoint pos;
@@ -22,26 +24,44 @@ Smile::Smile(float _x, float _y){
     pos = ofPoint(_x,_y);
     scale = 0;
     dScale = 0;
-    color = 0xffffff;
+    color = ofColor::fromHex(0xffffff);
 }
 Smile::~Smile(){
     
 }
 void Smile::setColor(int _color){
-    color = _color;
+    color = ofColor::fromHex(_color);
+}
+void Smile::registerImage(ofImage * _img_ptr){
+    img_ptr = _img_ptr;
 }
 void Smile::update(){
     wait--;
     if(wait==0){
-        scale = 5.0f;
+        scale = MAX_SCALE;
         dScale = 1.0f;
     }
-    scale += (dScale-scale)/16.0f;
+    scale += (dScale-scale)/4.0f;
 }
 void Smile::draw(){
+    
+    ofEnableAlphaBlending();
     if(wait<=0){
-        ofSetHexColor(color);
-        ofCircle(pos,3.0f*scale);
+        
+        // scale goes 10-1
+        // alpha should go 0-1
+        // (10-scale)/10
+        // 10 - 10 0/10
+        // (10 - 1)10
+        // 9/10
+        
+        ofColor newColor = ofColor(color.r,color.g,color.b,255.0f*(MAX_SCALE-scale)/MAX_SCALE);
+        ofSetColor(newColor);
+        ofPushMatrix();
+        ofTranslate(pos);
+        img_ptr->draw(-1*img_ptr->width/2*scale,-1*img_ptr->height/2*scale,img_ptr->width*scale,img_ptr->width*scale);
+        //ofCircle(0,0,3.0f*scale);
+        ofPopMatrix();
     }
     
 }
