@@ -1,5 +1,7 @@
 #include "testApp.h"
 
+string convertInt(int number);
+
 //--------------------------------------------------------------
 void testApp::setup(){
 
@@ -40,6 +42,13 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
+    for(int i=0; i<result.size(); i++)
+	{
+		std::string title  = convertInt(result[i]["id"].asInt());
+		ofDrawBitmapString(title, 20, i*24+40);
+	}
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -85,4 +94,21 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+// from http://www.cplusplus.com/forum/beginner/7777/
+string convertInt(int number)
+{
+    if (number == 0)
+        return "0";
+    string temp="";
+    string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0;i<temp.length();i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
 }
