@@ -6,6 +6,9 @@ string convertInt(int number);
 //int colors[5] = {0x444488,0xff5533, 0x1188ff, 0xeedddd, 0xeecc99};
 
 // http://www.cssdrive.com/imagepalette/index.php
+// color palette from this image:
+// http://graphics8.nytimes.com/images/2013/06/28/arts/28ALTBUTTON_SPAN/28ALTBUTTON_SPAN-articleLarge.jpg
+
 int colors[47] = {  0xe8eae7,
                     0xdce1dd,
                     0xf6ecf4,
